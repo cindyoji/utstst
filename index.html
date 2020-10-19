@@ -1,0 +1,42 @@
+<html>
+<head>
+    <meta charset = "UTF-8">
+    <title>Database Cindy</title>
+</head>
+
+<body>
+    <form>
+        <label for="firstname">First name:</label><br>
+        <imput type = "text" id="firstname" name="firstname"><br>
+        <label for="lastname">Last name:</label><br>
+        <imput type = "text" id="lastname" name="lastname"><br>
+        <button type = "button" onclick = "insertname()">Enter</button>
+    </form>
+
+    <script>
+        function insertname(){
+            var url = "http://localhost:3000/api/insert"
+            let data = {}
+            data.firstname = document.getElementById("firstname").value
+            data.lastname = document.getElementById("lastname").value
+            var json = JSON.stringify(data);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader('Content-type', 'application/json; charset = UTF-8');
+            xhr.onload = function(){
+                console.log(xhr.responseText)
+                var name = JSON.parse(shr.responseText);
+                if(xhr.readyState == 4 && xhr.status == "200"){
+                    console.table(name)
+                    alert("Successfully Entered " + data.firstname + " " + data.lastname)
+                }
+                else{
+                    console.error(name)
+                }
+            }
+            xhr.send(json);
+        }
+    </script>
+
+</body>
+</html>
